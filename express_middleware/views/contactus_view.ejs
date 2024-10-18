@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Envelope Contact Form</title>
+  <style>
+    body {
+      background: linear-gradient(45deg, #BB1881, #F88B50);
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .contact-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .flip-card {
+      border-radius: 0.5em;
+      position: fixed;
+      top: 1em;
+      left: 1em;
+      width: 5em;
+      padding: 0.5em;
+      border: 0.1em solid #fff;
+      color: #fff;
+      text-align: center;
+      cursor: pointer;
+      z-index: 9;
+    }
+
+    .envelope {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 0;
+      padding-bottom: 70%;
+      margin: 0 auto;
+      transition: all 0.5s ease-in-out;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+
+    .envelope.active .content {
+      padding: 10em 2em 2em;
+    }
+
+    .envelope.active .paper.front,
+    .envelope.active .paper.back {
+      animation-duration: 1.5s;
+      animation-direction: normal;
+      animation-timing-function: ease-in-out;
+      animation-fill-mode: forwards;
+    }
+
+    .envelope.active .paper.front {
+      animation-name: envelope-front;
+    }
+
+    .envelope.active .paper.back {
+      animation-name: envelope-back;
+    }
+
+    .envelope.active .paper.back:before {
+      animation-duration: 0.5s;
+      animation-direction: normal;
+      animation-timing-function: ease-in-out;
+      animation-fill-mode: forwards;
+      animation-delay: 1.25s;
+      animation-name: envelope-back-before;
+    }
+
+    .envelope.active .bottom-wrapper {
+      transform: rotateX(180deg);
+    }
+
+    .content {
+      padding: 2em;
+      box-sizing: border-box;
+      position: relative;
+      z-index: 9;
+      transition: all 0.5s ease-in-out;
+      transition-delay: 1s;
+      background: #03A9F5;
+      color: #fff;
+      border-radius: 0.5em;
+      backface-visibility: hidden;
+    }
+
+    .form-wrapper form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input {
+      margin-bottom: 1em;
+    }
+
+    .input label {
+      display: block;
+      margin-bottom: 0.5em;
+    }
+
+    .input input,
+    .input textarea {
+      width: 100%;
+      background: transparent;
+      color: #fff;
+      border: none;
+      border-bottom: 1px solid #fff;
+      padding: 0.5em;
+    }
+
+    .input textarea {
+      border: 1px solid #fff;
+      border-radius: 0.25em;
+    }
+
+    .submit-card {
+      background: #fff;
+      color: #222;
+      text-align: center;
+      padding: 0.5em;
+      border-radius: 0.25em;
+      cursor: pointer;
+    }
+
+    .paper {
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 0;
+      border-bottom-left-radius: 0.5em;
+      border-bottom-right-radius: 0.5em;
+      overflow: hidden;
+      backface-visibility: hidden;
+    }
+
+    .paper.back {
+      top: 0;
+      z-index: 1;
+    }
+
+    .paper.back:before {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      margin-bottom: -1px;
+      border-style: solid;
+      border-width: 0 15em 10em 15em;
+      border-color: transparent transparent #d3d3d3 transparent;
+      transform-origin: bottom;
+      transform-style: preserve-3d;
+    }
+
+    .paper.back:after {
+      content: '';
+      display: block;
+      background-color: #d3d3d3;
+      width: 100%;
+      height: 200px;
+    }
+
+    .paper.front {
+      top: 10em;
+      box-shadow: 0.1em 0.5em 0.5em rgba(0, 0, 0, 0.25);
+      z-index: 2;
+    }
+
+    .paper.front:before {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 10em 15em 0 15em;
+      border-color: transparent #fff;
+    }
+
+    .paper.front:after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100px;
+      background: #fff;
+      margin-top: -1px;
+    }
+
+    @keyframes envelope-front {
+      0% {
+        top: 10em;
+        z-index: 0;
+      }
+
+      50% {
+        top: 15em;
+        z-index: 9;
+      }
+
+      100% {
+        top: 10em;
+        z-index: 9;
+      }
+    }
+
+    @keyframes envelope-back {
+      0% {
+        top: 0;
+      }
+
+      50% {
+        top: 5em;
+      }
+
+      100% {
+        top: 0;
+      }
+    }
+
+    @keyframes envelope-back-before {
+      0% {
+        border-color: transparent transparent #d3d3d3 transparent;
+        transform: rotateX(0deg);
+        z-index: 0;
+      }
+
+      100% {
+        border-color: transparent transparent #fff transparent;
+        transform: rotateX(180deg);
+        z-index: 99;
+        position: relative;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="flip-card" onclick="toggleFlipCard()">Animate</div>
+
+  <div class="contact-wrapper">
+    <div class="envelope">
+      <div class="back paper"></div>
+      <div class="content">
+        <div class="form-wrapper">
+          <form action="contactusSubmit" method="post">
+            <div class="input">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            <div class="input">
+              <label for="phone">Phone</label>
+              <input type="text" id="phone" name="phone" required />
+            </div>
+            <div class="input">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="_replyto" required />
+            </div>
+            <div class="input">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="_subject" required />
+            </div>
+            <div class="input">
+              <label for="message">Querry</label>
+              <textarea id="message" rows="5" name="message" required></textarea>
+            </div>
+            <div class="submit">
+              <button type="submit" class="submit-card">Send Mail</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="front paper"></div>
+    </div>
+  </div>
+
+  <script>
+    function toggleFlipCard() {
+      const envelope = document.querySelector('.envelope');
+      envelope.classList.toggle('active');
+      
+      const flipCardButton = document.querySelector('.flip-card');
+      flipCardButton.textContent = envelope.classList.contains('active') ? 'Reset' : 'Animate';
+    }
+  </script>
+
+</body>
+</html>

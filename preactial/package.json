@@ -4,5 +4,19 @@
     "express-session": "^1.18.0",
     "nodejs": "^0.0.0",
     "nodemon": "^3.1.4"
-  }
+  },
+  "name": "preactial",
+  "version": "1.0.0",
+  "main": "preactial.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"start": "nodemon preactial.js"
+  },
+  "keywords": [
+    "[]"
+  ],
+  "author": "\"\"",
+  "license": "ISC",
+  "description": ""
 }

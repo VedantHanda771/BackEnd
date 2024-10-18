@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Category</title>
+</head>
+<body>
+    <%- include('header') %>
+    <div style="border:2px red dotted; height:500px; width:1200px;">
+        <form action="/updateCategory/<%= cat._id %>" method="post">
+            <table align="center" class="table table-bordered">
+                <tr>
+                    <td>Category Name</td>
+                    <td><input type="text" name="catname" value="<%= cat.catname %>"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Update">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

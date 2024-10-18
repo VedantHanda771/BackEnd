@@ -1,0 +1,18 @@
+<%- include("header") %>
+<div style="border:2px red dotted; height:500px; width:1200px;">
+    <table align="center" class="table table-bordered">
+        <tr>
+            <th>Category Name</th>
+            <th>Actions</th>
+        </tr>
+        <% catList.forEach(function(cat) { %>
+            <tr>
+                <td><%= cat.catname %></td>
+                <td>
+                    <a href="/editcategery/<%= cat._id %>">Edit</a> |
+                    <a href="/deletecategery?catid=<%= cat._id %>" onclick="return confirm('Are you sure you want to delete this category?');">Delete</a>
+                </td>
+            </tr>
+        <% }); %>
+    </table>
+</div>

@@ -1,0 +1,25 @@
+<%- include("header"); %>
+<div style="border:2px red dotted; height:500px; width:1200px;">
+<h1 class="bg-primary text-dark" >Item List </h1>
+<table align= "center" class="table table-stripped">
+<tr>
+<th>Item Name </th>
+<th> Price </th>
+<th>Date of Manufacturing </th>
+<th>Date of Expiry </th>
+<th> Color </th>
+<th>Action</th>
+</tr>
+<% for(let x of itemData){ %>
+   <tr>
+   <td><%=x.iname%> </td>
+   <td><%=x.price%> </td>
+   <td><%=x.dom.getDate() %>-<%=x.dom.getMonth() %>-<%=x.dom.getFullYear()%></td>
+   <td><%=x.doe%></td>
+   <td><%=x.color%></td>
+   <td>Edit | Delete </td>
+   </tr>
+   <% } %>
+</table>
+</div>
+<%- include("footer"); %>
